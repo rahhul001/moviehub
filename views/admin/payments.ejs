@@ -1,0 +1,9 @@
+<%- include('../partials/head') %>
+<h2>Payments</h2>
+<table>
+<tr><th>Date</th><th>Movie</th><th>Contact</th><th>Amount</th><th>Status</th><th>Expires</th></tr>
+<% rows.forEach(r => { %>
+<tr><td><%= r.created_at %></td><td><%= r.title || '(deleted)' %></td><td><%= r.contact %></td><td>₹<%= r.amount %></td><td><%= r.status %></td><td><%= r.expires_at || '' %></td></tr>
+<% }) %>
+</table>
+<%- include('../partials/foot') %>

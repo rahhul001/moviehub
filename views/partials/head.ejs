@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= typeof title !== 'undefined' ? title + ' · ' : '' %><%= settings.site_name %></title>
+<link rel="stylesheet" href="/style.css"></head><body>
+<header class="top"><a class="brand" href="/"><%= settings.site_name %></a>
+<nav>
+<% if (isAdmin) { %>
+<a href="/admin">Dashboard</a><a href="/admin/payments">Payments</a><a href="/admin/settings">Settings</a>
+<form method="post" action="/admin/logout" class="inline"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="link">Logout</button></form>
+<% } %></nav></header>
+<% if (demo) { %><div class="banner">DEMO payment mode – no real money is charged. Add Razorpay keys in .env to go live.</div><% } %>
+<main class="wrap">

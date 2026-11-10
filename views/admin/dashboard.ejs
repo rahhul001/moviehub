@@ -1,0 +1,24 @@
+<%- include('../partials/head') %>
+<div class="stats">
+  <div class="card"><b><%= stats.movies %></b><span>Movies</span></div>
+  <div class="card"><b><%= stats.n %></b><span>Paid orders</span></div>
+  <div class="card"><b>₹<%= stats.total %></b><span>Revenue</span></div>
+</div>
+<p><a class="btn" href="/admin/movies/new">+ Add movie</a></p>
+<table>
+<tr><th>Title</th><th>Price</th><th>Download</th><th>Watch</th><th>Status</th><th></th></tr>
+<% movies.forEach(m => { %>
+<tr>
+  <td><%= m.title %> <small class="muted"><%= m.year || '' %></small></td>
+  <td><%= m.price != null ? '₹' + m.price : 'default (₹' + settings.price + ')' %></td>
+  <td><%= m.download_url ? '✔' : '—' %></td><td><%= m.watch_url ? '✔' : '—' %></td>
+  <td><%= m.active ? 'Live' : 'Hidden' %></td>
+  <td class="actions">
+    <a href="/admin/movies/<%= m.id %>/edit">Edit</a>
+    <form method="post" action="/admin/movies/<%= m.id %>/toggle" class="inline"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="link"><%= m.active ? 'Hide' : 'Show' %></button></form>
+    <form method="post" action="/admin/movies/<%= m.id %>/delete" class="inline" onsubmit="return confirm('Delete this movie?')"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="link danger">Delete</button></form>
+  </td>
+</tr>
+<% }) %>
+</table>
+<%- include('../partials/foot') %>

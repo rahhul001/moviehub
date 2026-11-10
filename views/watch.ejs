@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+<div class="card center">
+  <h2>✅ Payment successful</h2>
+  <p><strong><%= p.title %></strong></p>
+  <p><a class="btn gold" href="<%= url %>" target="_blank" rel="noopener noreferrer">▶ Watch now</a></p>
+  <p class="muted">Bookmark this page. Access expires on <%= new Date(p.expires_at).toLocaleString('en-IN') %>.</p>
+</div>
+<%- include('partials/foot') %>

@@ -1,0 +1,20 @@
+<%- include('partials/head') %>
+<div class="card detail">
+  <% if (movie.poster_url) { %><img src="<%= movie.poster_url %>" alt="" referrerpolicy="no-referrer"><% } %>
+  <div>
+    <h1><%= movie.title %> <% if (movie.year) { %><small>(<%= movie.year %>)</small><% } %></h1>
+    <% if (movie.category) { %><span class="tag"><%= movie.category %></span><% } %>
+    <p><%= movie.description %></p>
+    <% if (error) { %><p class="err"><%= error %></p><% } %>
+    <% if (movie.download_url) { %><p><a class="btn" href="/go/download/<%= movie.id %>" rel="nofollow noopener">⬇ Download</a></p><% } %>
+    <% if (movie.watch_url && settings.payments_enabled === '1') { %>
+      <form method="post" action="/movie/<%= movie.id %>/pay" class="pay">
+        <h3>▶ Watch online – ₹<%= price %></h3>
+        <input name="contact" placeholder="Email or 10-digit mobile" required>
+        <button class="btn gold">Pay ₹<%= price %> &amp; Watch</button>
+        <small class="muted">Access valid for <%= settings.access_hours %> hours.</small>
+      </form>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/foot') %>

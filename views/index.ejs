@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<form class="search" method="get" action="/">
+  <input name="q" placeholder="Search movies…" value="<%= q %>">
+  <select name="cat"><option value="">All categories</option>
+    <% cats.forEach(c => { %><option <%= c===cat?'selected':'' %>><%= c %></option><% }) %></select>
+  <button class="btn">Search</button>
+</form>
+<% if (!movies.length) { %><p class="muted">No movies found.</p><% } %>
+<div class="grid">
+<% movies.forEach(m => { %>
+  <a class="poster" href="/movie/<%= m.id %>">
+    <% if (m.poster_url) { %><img src="<%= m.poster_url %>" alt="" loading="lazy" referrerpolicy="no-referrer"><% } else { %><div class="noimg">🎬</div><% } %>
+    <span><%= m.title %><% if (m.year) { %> (<%= m.year %>)<% } %></span>
+  </a>
+<% }) %>
+</div>
+<%- include('partials/foot') %>

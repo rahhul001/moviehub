@@ -1,0 +1,10 @@
+<%- include('../partials/head') %>
+<form class="card center narrow" method="post" action="/admin/login">
+  <h2>Admin login</h2>
+  <% if (error) { %><p class="err"><%= error %></p><% } %>
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <input name="username" placeholder="Username" required autofocus>
+  <input name="password" type="password" placeholder="Password" required>
+  <button class="btn">Login</button>
+</form>
+<%- include('../partials/foot') %>

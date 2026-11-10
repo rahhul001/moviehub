@@ -1,0 +1,30 @@
+<%- include('partials/head') %>
+<div class="card center">
+  <h2>Pay ₹<%= order.amount %></h2><p><%= order.title %></p>
+  <% if (demo) { %>
+    <form method="post" action="/payment/demo"><input type="hidden" name="order_id" value="<%= order.order_id %>">
+      <button class="btn gold">Simulate successful payment</button></form>
+  <% } else { %>
+    <form id="vf" method="post" action="/payment/verify">
+      <input type="hidden" name="razorpay_order_id"><input type="hidden" name="razorpay_payment_id"><input type="hidden" name="razorpay_signature">
+    </form>
+    <button class="btn gold" id="payBtn">Pay with UPI / Card</button>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      const opts = {
+        key: "<%= keyId %>", amount: <%= order.amount * 100 %>, currency: "INR",
+        name: "<%= settings.site_name %>", description: <%- JSON.stringify(order.title) %>, order_id: "<%= order.order_id %>",
+        prefill: { <%- /^\S+@\S+$/.test(order.contact) ? 'email' : 'contact' %>: <%- JSON.stringify(order.contact) %> },
+        handler: function (r) {
+          const f = document.getElementById('vf');
+          f.razorpay_order_id.value = r.razorpay_order_id;
+          f.razorpay_payment_id.value = r.razorpay_payment_id;
+          f.razorpay_signature.value = r.razorpay_signature;
+          f.submit();
+        }
+      };
+      document.getElementById('payBtn').onclick = () => new Razorpay(opts).open();
+    </script>
+  <% } %>
+</div>
+<%- include('partials/foot') %>

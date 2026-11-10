@@ -1,0 +1,12 @@
+<%- include('../partials/head') %>
+<form class="card form" method="post" action="/admin/settings">
+  <h2>Settings</h2>
+  <% if (saved) { %><p class="ok">Saved.</p><% } %>
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Site name<input name="site_name" value="<%= settings.site_name %>"></label>
+  <label>Default watch price (₹)<input name="price" type="number" min="1" value="<%= settings.price %>"></label>
+  <label>Access duration after payment (hours)<input name="access_hours" type="number" min="1" value="<%= settings.access_hours %>"></label>
+  <label class="chk"><input type="checkbox" name="payments_enabled" <%= settings.payments_enabled === '1' ? 'checked' : '' %>> Enable paid watching</label>
+  <button class="btn">Save</button>
+</form>
+<%- include('../partials/foot') %>

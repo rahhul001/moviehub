@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+<form class="card form" method="post" action="<%= action %>">
+  <h2><%= movie.id ? 'Edit' : 'Add' %> movie</h2>
+  <% if (error) { %><p class="err"><%= error %></p><% } %>
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Title<input name="title" value="<%= movie.title || '' %>" required></label>
+  <label>Year<input name="year" type="number" value="<%= movie.year || '' %>"></label>
+  <label>Category<input name="category" value="<%= movie.category || '' %>"></label>
+  <label>Description<textarea name="description" rows="4"><%= movie.description || '' %></textarea></label>
+  <label>Poster image URL<input name="poster_url" value="<%= movie.poster_url || '' %>"></label>
+  <label>Download link (free, http/https)<input name="download_url" value="<%= movie.download_url || '' %>"></label>
+  <label>Watch-online link (shown only after payment)<input name="watch_url" value="<%= movie.watch_url || '' %>"></label>
+  <label>Price in ₹ (blank = global default)<input name="price" type="number" min="1" value="<%= movie.price != null ? movie.price : '' %>"></label>
+  <label class="chk"><input type="checkbox" name="active" <%= (movie.active === undefined || movie.active) ? 'checked' : '' %>> Visible on site</label>
+  <button class="btn">Save</button> <a href="/admin">Cancel</a>
+</form>
+<%- include('../partials/foot') %>
